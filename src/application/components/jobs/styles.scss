@@ -1,0 +1,115 @@
+@import "../common/styles/config";
+@import "../common/styles/text_decoration";
+
+
+@mixin shadow-job{
+    -webkit-box-shadow: 2px 0px 28px 0px rgba(50, 50, 50, 0.2);
+    -moz-box-shadow:    2px 0px 28px 0px rgba(50, 50, 50, 0.2);
+    box-shadow:         2px 0px 28px 0px rgba(50, 50, 50, 0.2);
+}
+.ui {
+    .message .header{
+        background-color:  unset;
+    }
+    th,td,span,label{
+        @include text();
+    }
+}
+
+.accordion { 
+    margin: 14px 0 0 -5px;
+    div.content{
+        margin: 0;
+    }
+}
+
+.a-job{
+    button{
+        @include text();
+    }
+    margin: 10px 0 55px 0;
+    background: white;
+    padding: 23px;
+    border-radius: 5px;
+    @include shadow-job();
+    a.page-title{
+        font-size: 21px;
+        color: $textColor;
+    }
+}
+
+.label-excl-list{
+    display: inline-flex !important;
+}
+
+.limited-v-scroll {
+    height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: solid $textColor 1px; 
+    border-radius: 5px;
+    padding: 3px;
+    
+    &::-webkit-scrollbar {
+        width: 1em;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color:$headerBackgroundColor !important;
+        border-radius: 0
+    }
+    @include shadow-job();
+}
+
+.exclude-list{
+    margin: 11px 0 0 9px;
+}
+
+.word-counter{
+    font-weight:  bold;
+}
+
+.updated-at {
+    margin-top: 23px;
+    float: right;
+    @include text();
+    &:after{
+        content:"  (UTC)"
+    }
+}
+
+.remove-action {
+    float: right;
+    @include text();
+}
+.no-jobs{
+    text-align:center;
+    h2{
+        @include text();
+        font-size: 16px;
+        margin-top: 35px;
+    }
+}
+.cb-auto-refresh {
+    margin-right: 18px;
+}
+.refresh-action-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+.url-legend{
+    @include text();    
+    display: block;
+    margin: 6px 0 0 0px;
+}
+.loader{
+    visibility: hidden;
+    margin: 31px 0 0px 19px;
+    span{
+        @include text();    
+        color:rgb(175, 121, 121);
+    }
+}
+.visible{
+    visibility: visible;
+}

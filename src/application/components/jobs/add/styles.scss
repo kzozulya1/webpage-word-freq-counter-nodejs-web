@@ -1,0 +1,31 @@
+@import "../../common/styles/config";
+@import "../../common/styles/text_decoration";
+
+
+@mixin shadow-job{
+    -webkit-box-shadow: 2px 0px 28px 0px rgba(50, 50, 50, 0.2);
+    -moz-box-shadow:    2px 0px 28px 0px rgba(50, 50, 50, 0.2);
+    box-shadow:         2px 0px 28px 0px rgba(50, 50, 50, 0.2);
+}
+
+.ui {
+    th,td,span,label{
+        @include text();
+    }
+}
+
+.a-job{
+    button{
+        @include text();
+    }
+
+    margin: 10px 0 55px 0;
+    background: white;
+    padding: 23px;
+    border-radius: 5px;
+    @include shadow-job();
+    a.page-title{
+        font-size: 21px;
+        color: $textColor;
+    }
+}
