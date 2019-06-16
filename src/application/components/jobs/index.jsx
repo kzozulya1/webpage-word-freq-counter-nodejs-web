@@ -13,7 +13,8 @@ class JobsComponent extends Component {
         super(props)
         this.state = {
             accordionActiveIndex: -1,
-            autoRefresh: true,
+            //autoRefresh: false,
+            intervalId: null,
             jobs: []
         }
         this.getJobs = this.getJobs.bind(this)
@@ -48,26 +49,38 @@ class JobsComponent extends Component {
      * Handle when auto refresh clicked
      */
     handleAutoRefreshCbClick = () => {
-        this.setState({
-            autoRefresh: !this.state.autoRefresh
-        })
+        if (this.state.intervalId != null) {
+            clearInterval(this.state.intervalId)
+            this.setState({
+                intervalId: null
+            })
+        } else {
+            let _id = setInterval(this.getJobs, 2000)
+            this.setState({
+                intervalId: _id
+            })
+        }
+
+
+
+        // this.setState({
+        //     autoRefresh: !this.state.autoRefresh
+        // })
     }
 
     /**
      * Get jobs from Mongo
      */
     getJobs(force = false) {
-        if (this.state.autoRefresh || force) {
-            api.listJobs().then(({ data }) => {
-                if (data.success) {
-                    this.setState({
-                        jobs: data.data
-                    })
-                } else {
-                    console.log("Error:", data.error)
-                }
-            })
-        }
+        api.listJobs().then(({ data }) => {
+            if (data.success) {
+                this.setState({
+                    jobs: data.data
+                })
+            } else {
+                console.log("Error:", data.error)
+            }
+        })
     }
 
     /**
@@ -75,7 +88,7 @@ class JobsComponent extends Component {
      */
     componentDidMount() {
         this.getJobs()
-        setInterval(this.getJobs, 1000);
+        //setInterval(this.getJobs, 1000);
     }
     /**
      * Convert UnixTimestamp To Date
@@ -105,8 +118,8 @@ class JobsComponent extends Component {
                 </div>
 
                 <div className="refresh-action-wrapper">
-                    <Checkbox defaultChecked label='Auto refresh' className="cb-auto-refresh" onClick={() => this.handleAutoRefreshCbClick()} />
-                    <Button icon labelPosition='left' disabled={this.state.autoRefresh} onClick={() => this.getJobs(true)}>
+                    <Checkbox label='Auto refresh' className="cb-auto-refresh" onClick={() => this.handleAutoRefreshCbClick()} />
+                    <Button icon labelPosition='left' disabled={this.state.intervalId} onClick={() => this.getJobs(/*true*/)}>
                         <Icon name='refresh' color="green" />Refresh
                     </Button>
                 </div>
